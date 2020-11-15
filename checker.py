@@ -10,40 +10,41 @@ from tqdm import *
 import cfscrape
 import signal
 
+
 def main():
 	global available_forks
 	available_forks = [
 	#0=working; 1=manual; 2=no explorer; 3= defenately dead
-	{"ticker": "ABTC",	"function": get_abtc, 			"name": "A Bitcoin", 					"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "B2X",	"function": get_b2x, 			"name": "Bitcoin Segwit2X", 			"status": 0, 	"CMC": "cmc:segwit2x", 			"explorer": "https://explorer.b2x-segwit.io" },
+	#{"ticker": "ABTC",	"function": get_abtc, 			"name": "A Bitcoin", 					"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "B2X",	"function": get_b2x, 			"name": "Bitcoin Segwit2X", 			"status": 0, 	"CMC": "cmc:segwit2x", 			"explorer": "https://explorer.b2x-segwit.io" },
 	{"ticker": "BBC",	"function": get_bbc, 			"name": "Big Bitcoin", 					"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BCA",	"function": get_bca, 			"name": "Bitcoin Atom", 				"status": 1, 	"CMC": "cmc:bitcoin-atom", 		"explorer": "https://bitcoinatom.net" },
+	{"ticker": "BCA",	"function": get_bca, 			"name": "Bitcoin Atom", 				"status": 1, 	"CMC": "cmc:bitcoin-atom", 		"explorer": "https://explorer.bitcoinatom.io/" },
 	{"ticker": "BCH",	"function": get_bch, 			"name": "Bitcoin Cash", 				"status": 0, 	"CMC": "cmc:bitcoin-cash", 		"explorer": "https://bitcoincash.blockexplorer.com" },
 	{"ticker": "BCB",	"function": get_bcb, 			"name": "Bitcoin Boy", 					"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BCBC",	"function": get_bcbc, 			"name": "clean blockchain",				"status": 2, 	"CMC": "", 						"explorer": "http://be.cleanblockchain.org/chain/Bitcoin/q/addressbalance/1MocACiWLM8bYn8pCrYjy6uHq4U3CkxLaa" },
-	{"ticker": "BCD",	"function": get_bcd , 			"name": "Bitcoin Diamond", 				"status": 1, 	"CMC": "cmc:bitcoin-diamond",	"explorer": "http://explorer.btcd.io" },
-	{"ticker": "BCHC",	"function": get_bchc, 			"name": "Bitcoin Clashic, also BCL",	"status": 0, 	"CMC": "bisq:bchc_btc", 		"explorer": "https://truevisionofsatoshi.com" },
+	#{"ticker": "BCBC",	"function": get_bcbc, 			"name": "clean blockchain",				"status": 2, 	"CMC": "", 						"explorer": "http://be.cleanblockchain.org/chain/Bitcoin/q/addressbalance/1MocACiWLM8bYn8pCrYjy6uHq4U3CkxLaa" },
+	{"ticker": "BCD",	"function": get_bcd , 			"name": "Bitcoin Diamond", 				"status": 1, 	"CMC": "cmc:bitcoin-diamond",	"explorer": "https://bcd.tokenview.com/" },
+	{"ticker": "BCHC",	"function": get_bchc, 			"name": "Bitcoin Clashic, also BCL",	"status": 0, 	"CMC": "bisq:bchc_btc", 		"explorer": "http://explorer.bitcoinclashic.io/" },
 	{"ticker": "BCI",	"function": get_bci, 			"name": "Bitcoin Intrest", 				"status": 0, 	"CMC": "tradesat:BCI_BTC",		"explorer": "https://explorer.bitcoininterest.io" },
-	{"ticker": "BCK",	"function": get_bck, 			"name": "Bitcoin King", 				"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BCL",	"function": get_bcl, 			"name": "Bitcoin Lunar", 				"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BCM",	"function": get_bcm, 			"name": "Bitcoin Master", 				"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BCO",	"function": get_bco, 			"name": "Bitcoin Ore", 					"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "BCK",	"function": get_bck, 			"name": "Bitcoin King", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "BCL",	"function": get_bcl, 			"name": "Bitcoin Lunar", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "BCM",	"function": get_bcm, 			"name": "Bitcoin Master", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "BCO",	"function": get_bco, 			"name": "Bitcoin Ore", 					"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BCP",	"function": get_bcp, 			"name": "Bitcoin Cash Plus", 			"status": 0, 	"CMC": "yobit:bcp_usd", 		"explorer": "http://www.bcpexp.org" },
 	{"ticker": "BCPC",	"function": get_bcpc, 			"name": "Bitcoin Cash P", 				"status": 2,	"CMC": "", 						"explorer": "" },
-	{"ticker": "BCS",	"function": get_bcs, 			"name": "Bitcoin Smart", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	{"ticker": "BCS",	"function": get_bcs, 			"name": "Bitcoin Speed", 				"status": 2, 	"CMC": "", 						"explorer": "http://dev.pywaves.org/assets/49ysvuhXc1jProfTHsG5r2rxrNeYNygG5Shah4UGAxHd" },
 	{"ticker": "BCS2",	"function": get_bcs2 , 			"name": "Bitcoin Sudu", 				"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BCW",	"function": get_bcw, 			"name": "Bitcoin Wonder", 				"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BCX",	"function": get_bcx, 			"name": "BitcoinX", 					"status": 0, 	"CMC": "cmc:bitcoinx", 			"explorer": "https://bcx.info" },
+	#{"ticker": "BCW",	"function": get_bcw, 			"name": "Bitcoin Wonder", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	{"ticker": "BCX",	"function": get_bcx, 			"name": "BitcoinX", 					"status": 0, 	"CMC": "cmc:bitcoinx", 			"explorer": "https://blockexplorer.one/markets/bcx" },
 	{"ticker": "BEC",	"function": get_bec, 			"name": "Bitcoin ECO", 					"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BICC",	"function": get_bicc, 			"name": "BitClassic", 					"status": 0, 	"CMC": "topbtc:none", 			"explorer": "http://18.216.251.169" },
 	{"ticker": "BIFI",	"function": get_bifi, 			"name": "Bitcoin File", 				"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BTCMI",	"function": get_bitcoinminor, 	"name": "Bitcoin Minor", 				"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BITE",	"function": get_bite, 			"name": "BitEthereum", 					"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "BITE",	"function": get_bite, 			"name": "BitEthereum", 					"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BNR",	"function": get_bnr, 			"name": "Bitcoin Neuro", 				"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BPA",	"function": get_bpa, 			"name": "Bitcoin Pizza", 				"status": 0, 	"CMC": "hbtop:none", 			"explorer": "http://47.100.55.227" },
 	{"ticker": "BTA",	"function": get_bta, 			"name": "Bitcoin All", 					"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BTC",	"function": get_btc, 			"name": "Bitcoin", 						"status": 0, 	"CMC": "cmc:bitcoin", 			"explorer": "http://www.blockchain.info" },
-	{"ticker": "BTC2",	"function": get_btc2, 			"name": "Bitcoin 2", 					"status": 2, 	"CMC": "", 						"explorer": "" },
+	{"ticker": "BTC2",	"function": get_btc2, 			"name": "Bitcoin 2", 					"status": 2, 	"CMC": "", 						"explorer": "https://btc2.tokenview.com/" },
 	{"ticker": "BTCH",	"function": get_btch, 			"name": "Bitcoin Hush", 				"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BTCL",	"function": get_btcl, 			"name": "Bitcoin Lite", 				"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BTCM",	"function": get_btcm, 			"name": "Bitcoin Metal", 				"status": 2, 	"CMC": "", 						"explorer": "" },
@@ -59,24 +60,24 @@ def main():
 	{"ticker": "BTN",	"function": get_btn, 			"name": "Bitcoin New", 					"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BTP",	"function": get_btp, 			"name": "Bitcoin Pay", 					"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BTP2",	"function": get_btp2, 			"name": "Bitcoin Pro", 					"status": 1, 	"CMC": "", 						"explorer": "http://bitcoin-pool.de/explorer/BTP/" },
-	{"ticker": "BTR",	"function": get_btr, 			"name": "Bitcoin Rhodium", 				"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BTSQ",	"function": get_btsq, 			"name": "Bitcoin Community", 			"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BTT",	"function": get_btt,			"name": "Bitcoin Top", 					"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "BTV",	"function": get_btv,			"name": "BitVote", 						"status": 0, 	"CMC": "yobit:btv_usd", 		"explorer": "https://block.bitvote.one" },
-	{"ticker": "BTW",	"function": get_btw,			"name": "Bitcoin World", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	{"ticker": "BTR",	"function": get_btr, 			"name": "Bitcoin Rhodium", 				"status": 2, 	"CMC": "", 						"explorer": "https://explorer.bitcoinrh.org/" },
+	#{"ticker": "BTSQ",	"function": get_btsq, 			"name": "Bitcoin Community", 			"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "BTT",	"function": get_btt,			"name": "Bitcoin Top", 					"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "BTV",	"function": get_btv,			"name": "BitVote", 						"status": 0, 	"CMC": "yobit:btv_usd", 		"explorer": "https://block.bitvote.one" },
+	#{"ticker": "BTW",	"function": get_btw,			"name": "Bitcoin World", 				"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "BTX",	"function": get_btx,			"name": "Bitcore", 						"status": 0, 	"CMC": "cmc:bitcore", 			"explorer": "https://chainz.cryptoid.info/btx/" },
-	{"ticker": "BUM",	"function": get_bum,			"name": "Bitcoin Uranium", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "BUM",	"function": get_bum,			"name": "Bitcoin Uranium", 				"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "CBTC",	"function": get_cbtc,			"name": "Classic Bitcoin",	 			"status": 2, 	"CMC": "",						"explorer": "http://35.229.37.251:3001/insight/" },
 	{"ticker": "CDY",	"function": get_cdy,			"name": "Bitcoin Candy (fork of BCH)", 	"status": 0, 	"CMC": "coinex:CDYBCH",			"explorer": "http://block.cdy.one/" },
-	{"ticker": "FBTC",	"function": get_fbtc,			"name": "Bitcoin Fast", 				"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "GOD",	"function": get_god,			"name": "Bitcoin God", 					"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "LBTC",	"function": get_lbtc,			"name": "Lightning Bitcoin", 			"status": 1, 	"CMC": "cmc:lightning-bitcoin", "explorer": "http://explorer.lbtc.io" },
-	{"ticker": "OBTC",	"function": get_obtc,			"name": "Oil Bitcoin", 					"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "NBTC",	"function": get_nbtc,			"name": "New Bitcoin", 					"status": 2, 	"CMC": "", 						"explorer": "" },
-	{"ticker": "QBTC",	"function": get_qbtc,			"name": "Quantum Bitcoin", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "FBTC",	"function": get_fbtc,			"name": "Bitcoin Fast", 				"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "GOD",	"function": get_god,			"name": "Bitcoin God", 					"status": 2, 	"CMC": "", 						"explorer": "" },
+	{"ticker": "LBTC",	"function": get_lbtc,			"name": "Lightning Bitcoin", 			"status": 1, 	"CMC": "cmc:lightning-bitcoin", "explorer": "https://explorer.lbtc.io/" },
+	#{"ticker": "OBTC",	"function": get_obtc,			"name": "Oil Bitcoin", 					"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "NBTC",	"function": get_nbtc,			"name": "New Bitcoin", 					"status": 2, 	"CMC": "", 						"explorer": "" },
+	#{"ticker": "QBTC",	"function": get_qbtc,			"name": "Quantum Bitcoin", 				"status": 2, 	"CMC": "", 						"explorer": "" },
 	{"ticker": "SBTC",	"function": get_superbtc,		"name": "Super Bitcoin", 				"status": 0, 	"CMC": "cmc:super-bitcoin",		"explorer": "http://block.superbtc.org" },
-	{"ticker": "UBTC",	"function": get_ubtc,			"name": "United Bitcoin	", 				"status": 1, 	"CMC": "", 						"explorer": "https://www.ub.com/explorer" },
-	{"ticker": "WBTC",	"function": get_wbtc,			"name": "World Bitcoin", 				"status": 0, 	"CMC": "tradesat:WBTC_BTC",		"explorer": "http://142.44.242.32:3001" },
+	{"ticker": "UBTC",	"function": get_ubtc,			"name": "United Bitcoin	", 				"status": 1, 	"CMC": "", 						"explorer": "http://ub.com/explorer" },
+	#{"ticker": "WBTC",	"function": get_wbtc,			"name": "World Bitcoin", 				"status": 0, 	"CMC": "tradesat:WBTC_BTC",		"explorer": "http://142.44.242.32:3001" },
 	]
 	
 	parser = argparse.ArgumentParser()
@@ -162,7 +163,7 @@ def main():
 		verbose = 0
 	if args.outfile:
 		file = open(args.outfile, "w")
-		file.write("if you like this project, consider some of the \"free\" coins you got from these forks to me ;)\nBTC/BCH/BTX/B2X/...: 3QQmYmPM23TdNb4BStzaSSPg3R8CCnsSLU\n\n")
+		file.write("if you like this project, consider some of the \"free\" coins you got from these forks to me ;)\nBTC/BCH/BTX/B2X/...: 1MocACiWLM8bYn8pCrYjy6uHq4U3CkxLaa\n\n")
 		file.close()
 
 	if args.showforks:
