@@ -5,9 +5,9 @@ I was searching for a tool to check my unspent outputs on all different altcoins
 If you want to run the script, i recommend:  
   
  - Linux
- - python 2.7
- - pip
- - pip modules sys, argparse, requests, base58, time, urllib, urllib3, json, tqdm, signal and cfscrape
+ - python3.6
+ - pip3
+ - pip3 modules argparse, requests, base58, urllib, urllib3, signal and cfscrape
  - git
   
 **How to install the script**  
@@ -67,6 +67,10 @@ In order to add your coin to the script yourself, just add 1 line to the availab
 **warnings!**  
 *Some of these coins don't have replay protection, some of these coins might only distribute binary wallets (or have open source wallets that weren't toroughly vetted by a competent community member). The first case can result in transactions being replaying on unintended chains, the second case can result in backdoors or bugs exposing your private keys to either the makers of the coin, or hackers exploiting the wallets... Always empty out your bitcoin wallet before attempting to import the private keys into wallets belonging to forked chains... Also try to claim the forks in order of importance (the most expensive forks first, the least expensive forks last)*  
   
+### TO DO
+blockexplorer need update
+what ever other updates are needed
+
 **tipjar(s)**  
 Since you can now claim a lot of coins on a lot of forks, you're in the ability to send me a tip (if you'd like)
 
