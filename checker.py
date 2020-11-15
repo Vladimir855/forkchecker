@@ -162,7 +162,7 @@ def main():
 		verbose = 0
 	if args.outfile:
 		file = open(args.outfile, "w")
-		file.write("if you like this project, consider some of the \"free\" coins you got from these forks to me ;)\nBTC/BCH/BTX/B2X/...: 1MocACiWLM8bYn8pCrYjy6uHq4U3CkxLaa\nBTG: GeeXaL3TKCjtdFS78oCrPsFBkEFt9fxuZF\n\n")
+		file.write("if you like this project, consider some of the \"free\" coins you got from these forks to me ;)\nBTC/BCH/BTX/B2X/...: 3QQmYmPM23TdNb4BStzaSSPg3R8CCnsSLU\n\n")
 		file.close()
 
 	if args.showforks:
