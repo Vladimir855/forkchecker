@@ -76,7 +76,7 @@ Since you can now claim a lot of coins on a lot of forks, you're in the ability 
 
 | coin | address |  
 | --- | --- |  
-| BTC | 1MocACiWLM8bYn8pCrYjy6uHq4U3CkxLaa |  
+| BEAM | 385ae80bff30e3f5f85056d1661d6b340acbea007637fd23337622286c326a55e33 |  
 | BTC (segwit) | 3NMoA9R6dNDxV3dmnRRFqC44cW1PaDg5hs |  
 | BCH | 1MocACiWLM8bYn8pCrYjy6uHq4U3CkxLaa |  
 | BPA | PVPnKB7MPGcnXcoaYvsGdzsZSodvJaXbzT |  
